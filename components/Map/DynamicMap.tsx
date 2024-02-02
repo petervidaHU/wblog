@@ -1,18 +1,16 @@
 import { FC, useEffect } from 'react';
 import Leaflet from 'leaflet';
-import * as ReactLeaflet from 'react-leaflet';
+import {MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 interface Props {
   width: number,
   height: number,
-  children: any,
+  center: Array<number>,
+  zoom: number,
 }
 
-const { MapContainer } = ReactLeaflet;
-
-const Map: FC<Props> = ({ children, width, height, ...rest }) => {
-  console.log('rest ', rest)
+const Map: FC<Props> = ({ width, height, center, zoom }) => {
 
   useEffect(() => {
     (async function init() {
@@ -25,12 +23,26 @@ const Map: FC<Props> = ({ children, width, height, ...rest }) => {
     })();
   }, []);
 
+  const c = {lat: center[0], lng: center[1]}
+
   return (
-    <MapContainer style={ {
+    <MapContainer style={{
       width,
       height,
-    }} {...rest}>
-      {children(ReactLeaflet, Leaflet)}
+    }}
+      center={c}
+      zoom={zoom}>
+      <>
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+        />
+        <Marker position={c}>
+          <Popup>
+            A pretty CSS3 popup. <br /> Easily customizable.
+          </Popup>
+        </Marker>
+      </>
     </MapContainer>
   )
 }
