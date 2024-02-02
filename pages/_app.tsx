@@ -1,4 +1,6 @@
 import "@/styles/globals.css";
+import { Provider } from 'react-redux';
+import store from '../store/store';
 import type { AppProps } from "next/app";
 import { AppCacheProvider } from '@mui/material-nextjs/v14-pagesRouter';
 
@@ -22,11 +24,13 @@ export default function App(props: AppProps) {
   const { Component, pageProps } = props;
   return (
     <AppCacheProvider {...props}>
-      <ThemeProvider theme={theme}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </ThemeProvider>
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ThemeProvider>
+      </Provider>
     </AppCacheProvider>
   );
 }

@@ -9,11 +9,11 @@ interface Props {
 }
 
 const ttt: FC<Props> = ({ data }) => {
-    const { title } = data;
+   // const { title } = data;
 
     return (
         <>
-            <Title title={title} />
+            <Title title={'title'} />
             <div>
                 <MapComponent width={800} height={2400} center={DEFAULT_CENTER} zoom={12} />
             </div>
