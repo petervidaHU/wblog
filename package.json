@@ -17,6 +17,7 @@
     "@mui/material-nextjs": "^5.15.7",
     "@reduxjs/toolkit": "^2.1.0",
     "copy-webpack-plugin": "^11.0.0",
+    "gray-matter": "^4.0.3",
     "leaflet": "^1.9.4",
     "next": "14.1.0",
     "react": "^18",
