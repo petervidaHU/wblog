@@ -5,10 +5,12 @@ import { Grid, Paper, styled } from '@mui/material'
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (<>
-    <NavBar />
     <Grid container spacing={3}>
+      <Grid item xs={12}>
+          <NavBar />
+      </Grid>
       <Grid item xs>
-        <Item>xs</Item>
+        <ItemE />
       </Grid>
       <Grid item xs={6}>
         <Item>
@@ -16,7 +18,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
         </Item>
       </Grid>
       <Grid item xs>
-        <Item>xs</Item>
+        <ItemE />
       </Grid>
     </Grid>
     <Footer />
@@ -26,6 +28,14 @@ const Layout = ({ children }: { children: ReactNode }) => {
 export default Layout;
 
 const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
+
+const ItemE = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
   padding: theme.spacing(1),
