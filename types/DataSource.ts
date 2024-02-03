@@ -1,3 +1,5 @@
+import { ImageBase } from "./Imagetypes";
+
 export enum TypeOfEntity {
     city = 'city',
     poi = 'poi',
@@ -18,23 +20,15 @@ export interface Frontmatter {
     poiList?: Array<string>
 };
 
-export interface ImageObject {
-    url: string,
-    altText: {
-        desc: string,
-        caption: string,
-    },
-}
-
 export interface SubContent {
     data: Frontmatter,
     content: string,
-    images: Array<ImageObject>,
+    images: Array<ImageBase>,
 }
 
 export interface DynamicProps {
     data: Frontmatter,
     ownContent: string,
-    ownImages: Array<ImageObject>,
+    ownImages: Array<ImageBase>,
     subContent: Array<SubContent>
   }

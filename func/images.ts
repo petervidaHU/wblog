@@ -20,6 +20,7 @@ export const imageObjectBuilder = async (img: string, slug: string, imagePath: s
 
     return {
         url: `/dataSource/${slug}/${img}`,
-        altText: { desc, caption },
+        altText: { desc, caption }, 
+        key: `key${imagePath}/${slug}/${img}`
     }
 }

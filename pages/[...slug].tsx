@@ -4,7 +4,7 @@ import React, { FC } from 'react';
 import { filterImages, imageObjectBuilder } from '@/func/images';
 import { filterFolders, getFolderContent, getSubContent } from '@/func/folders';
 import { getMarkDownContent } from '@/func/markdown';
-import { DynamicProps, Frontmatter, ImageObject, SubContent, TypeOfEntity } from '@/types/DataSource';
+import { DynamicProps, TypeOfEntity } from '@/types/DataSource';
 import CityTemplate from '@/components/page-templates/CityTemplate';
 import PoiTemplate from '@/components/page-templates/PoiTemplate';
 import { getCityContent } from '@/func/cityContent';
@@ -90,7 +90,12 @@ const DynamicPage: FC<DynamicProps> = ({
     switch (type) {
       case TypeOfEntity.city:
         return (
-          <CityTemplate />
+          <CityTemplate
+          data={data}
+          ownContent={ownContent}
+          ownImages={ownImages}
+          subContent={subContent}
+          />
         )
       case TypeOfEntity.poi:
         return (
