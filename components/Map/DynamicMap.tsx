@@ -12,16 +12,16 @@ interface Props {
 
 const Map: FC<Props> = ({ width, height, center, zoom }) => {
 
-  useEffect(() => {
+   useEffect(() => {
     (async function init() {
       delete (Leaflet.Icon.Default.prototype as any)._getIconUrl;
       Leaflet.Icon.Default.mergeOptions({
-        iconRetinaUrl: 'leaflet/images/marker-icon-2x.png',
-        iconUrl: 'leaflet/images/marker-icon.png',
-        shadowUrl: 'leaflet/images/marker-shadow.png',
+        iconRetinaUrl: '/leaflet/images/marker-icon-2x.png',
+        iconUrl: '/leaflet/images/marker-icon.png',
+        shadowUrl: '/leaflet/images/marker-shadow.png',
       });
     })();
-  }, []);
+  }, []); 
 
   const c = {lat: center[0], lng: center[1]}
 
