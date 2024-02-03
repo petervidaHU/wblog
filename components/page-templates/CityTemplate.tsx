@@ -9,6 +9,7 @@ import MapComponent from "../Map/MapComponent";
 import PoiCardContainer from "../PoiCardContainer";
 import PicGalery from "../picGalery";
 import Title from "./Title";
+import { MarkersType } from "@/types/UITypes";
 
 interface Props {
   data: any,
@@ -26,6 +27,12 @@ const CityTemplate: React.FC<Props> = ({ data, ownContent, ownImages, subContent
   } = data;
   
   const mainText = enhanceHtml(ownContent, ownImages);
+
+  const markerPoints: MarkersType = subContent.map(content => ({
+    center: content.data.coordinates,
+    name: content.data.name,
+    slug: content.data.slug,
+  }));
   /*
   const finalBC = breadcrumbOverride(location, breadcrumbs);
   useAddHistory({ name, fullSlug, id }, myImages[0]);
@@ -55,7 +62,7 @@ const CityTemplate: React.FC<Props> = ({ data, ownContent, ownImages, subContent
         images={ownImages}
       />
 
-      <MapComponent width={600} height={600} center={coordinates} zoom={10} />
+      <MapComponent width={600} height={600} center={coordinates} zoom={10} markers={markerPoints}/>
 
       {subContent && subContent.length > 0 && (
         <PoiCardContainer

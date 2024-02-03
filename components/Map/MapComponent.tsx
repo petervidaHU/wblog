@@ -1,11 +1,14 @@
 import React, { FC } from 'react'
 import dynamic from 'next/dynamic';
+import { CoordinatesType } from '@/types/DataSource';
+import { MarkersType } from '@/types/UITypes';
 
 interface Props {
   width: number;
   height: number;
-  center: Array<number>,
+  center: CoordinatesType,
   zoom: number,
+  markers: MarkersType,
 }
 
 const DynamicMap = dynamic(() => import('./DynamicMap'), {

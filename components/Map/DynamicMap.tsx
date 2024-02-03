@@ -2,15 +2,18 @@ import { FC, useEffect } from 'react';
 import Leaflet from 'leaflet';
 import {MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import { MarkersType } from '@/types/UITypes';
+import { CoordinatesType } from '@/types/DataSource';
 
 interface Props {
   width: number,
   height: number,
-  center: Array<number>,
+  center: CoordinatesType,
   zoom: number,
+  markers: MarkersType,
 }
 
-const Map: FC<Props> = ({ width, height, center, zoom }) => {
+const Map: FC<Props> = ({ width, height, center, zoom, markers }) => {
 
    useEffect(() => {
     (async function init() {
@@ -25,6 +28,14 @@ const Map: FC<Props> = ({ width, height, center, zoom }) => {
 
   const c = {lat: center[0], lng: center[1]}
 
+  const markersComp = markers.map(({center, slug, name}) => (
+    <Marker position={{lat: center[0], lng: center[1]}} key={slug}>
+    <Popup>
+      {name}
+    </Popup>
+  </Marker>
+  ))
+
   return (
     <MapContainer style={{
       width,
@@ -37,11 +48,7 @@ const Map: FC<Props> = ({ width, height, center, zoom }) => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
         />
-        <Marker position={c}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
+      {markersComp}
       </>
     </MapContainer>
   )
