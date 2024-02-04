@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import footerReducer from './footerSlice';
+import visitedReducer from './visitedSlice';
 
 const store = configureStore({
   reducer: {
-    footer: footerReducer,
+    visited: visitedReducer,
   },
 });
 

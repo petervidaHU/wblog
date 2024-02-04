@@ -2,14 +2,18 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 
 const Footer = () => {
-  const visitedSites = useSelector((state: RootState) => state.footer);
+  const visitedSites = useSelector((state: RootState) => state.visited);
 
   return (
     <>
       <div>
-        {visitedSites.map(site => (
-          <p key={site}>{site}</p>
-        ))}
+        {visitedSites.map(({ url }) => {
+          return (
+            <p>
+              {url}
+            </p>
+          )
+        })}
       </div>
       <div>
         footer footer

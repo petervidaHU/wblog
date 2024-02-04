@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useRouter } from 'next/router';
 import { ImageBase } from "@/types/Imagetypes";
+import { MarkersType } from "@/types/UITypes";
 import { SubContent } from "@/types/DataSource";
+import { addVisitedSite } from "@/store/visitedSlice";
 import { formatNumber } from "@/func/formatNumbers";
 import { enhanceHtml } from "@/func/enhanceHtml";
 import Box from "@mui/material/Box";
@@ -10,7 +13,7 @@ import MapComponent from "../Map/MapComponent";
 import PoiContainer from "../PoiContainer";
 import PicGalery from "../picGalery";
 import Title from "./Title";
-import { MarkersType } from "@/types/UITypes";
+import { useVisitedSites } from "@/hooks/useVisitedSites";
 
 interface Props {
   data: any,
@@ -22,12 +25,16 @@ interface Props {
 const CityTemplate: React.FC<Props> = ({ data, ownContent, ownImages, subContent }) => {
   const router = useRouter();
   const currentUrl = router.asPath;
-  // console.log('pagecontext in city template:::::::::::::', subContent);
+
+  // console.log('pagecontext in city template:::::::::::::', data);
   // console.log('pagecontext in city template:::::::::::::', ownImages);
   // console.log('pagecontext in city template:::::::::::::', ownContent);
+
   const {
-    coordinates, name, population, id, county
+    coordinates, name, population, id, county, 
   } = data;
+
+  useVisitedSites({url: currentUrl})
 
   const mainText = enhanceHtml(ownContent, ownImages);
 
@@ -39,7 +46,6 @@ const CityTemplate: React.FC<Props> = ({ data, ownContent, ownImages, subContent
 
   /*
   const finalBC = breadcrumbOverride(location, breadcrumbs);
-  useAddHistory({ name, fullSlug, id }, myImages[0]);
 */
   return (
     <>
