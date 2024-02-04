@@ -4,6 +4,8 @@ import { DynamicProps } from '@/types/DataSource';
 import Button from '@mui/material/Button';
 import { useVisitedSites } from '@/hooks/useVisitedSites';
 import { useRouter } from 'next/router';
+import { useBreadcrumb } from '@/hooks/useBreadcrumbs';
+import Box from '@mui/material/Box';
 
 const PoiTemplate: FC<Omit<DynamicProps, 'subContent'>> = ({
   data, ownContent, ownImages,
@@ -11,14 +13,20 @@ const PoiTemplate: FC<Omit<DynamicProps, 'subContent'>> = ({
   const router = useRouter();
   const currentUrl = router.asPath;
 
-  useVisitedSites({url: currentUrl})
-  
-  console.log('oi poi', ownImages)
-  console.log('oi poi', data)
-  console.log('oi poi', ownContent)
-  
+  const Breadcrumbs = useBreadcrumb(currentUrl);
+  useVisitedSites({ url: currentUrl })
+
+  // console.log('oi poi', ownImages)
+  // console.log('oi poi', data)
+  // console.log('oi poi', ownContent)
+
   return (
-    <>
+    <Box
+      sx={{
+        mt: 4
+      }}
+    >
+      {Breadcrumbs}
       <Button color="primary">
         Bordered
       </Button>
@@ -34,7 +42,7 @@ const PoiTemplate: FC<Omit<DynamicProps, 'subContent'>> = ({
         <Image src={ownImages[0].url} alt={ownImages[0].altText.desc} width={300} height={300} />
       )}
 
-    </>
+    </Box>
   )
 }
 

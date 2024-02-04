@@ -14,6 +14,7 @@ import PoiContainer from "../PoiContainer";
 import PicGalery from "../picGalery";
 import Title from "./Title";
 import { useVisitedSites } from "@/hooks/useVisitedSites";
+import { useBreadcrumb } from "@/hooks/useBreadcrumbs";
 
 interface Props {
   data: any,
@@ -31,10 +32,11 @@ const CityTemplate: React.FC<Props> = ({ data, ownContent, ownImages, subContent
   // console.log('pagecontext in city template:::::::::::::', ownContent);
 
   const {
-    coordinates, name, population, id, county, 
+    coordinates, name, population, id, county,
   } = data;
 
-  useVisitedSites({url: currentUrl})
+  const Breadcrumbs = useBreadcrumb(currentUrl);
+  useVisitedSites({ url: currentUrl })
 
   const mainText = enhanceHtml(ownContent, ownImages);
 
@@ -52,7 +54,12 @@ const CityTemplate: React.FC<Props> = ({ data, ownContent, ownImages, subContent
 
       <Title title={name} />
 
-      <Box>
+      <Box
+        sx={{
+          mt: 4
+        }}
+      >
+        {Breadcrumbs} 
         <Typography variant="body1" component="div">
           Population: {formatNumber(population)}
         </Typography>
