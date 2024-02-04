@@ -22,24 +22,28 @@ const PicGalery: FC<PicGaleryProps> = ({
   const [open, setOpen] = React.useState(false);
   const [imageInModal, setImageInModal] = React.useState<number>(0);
 
-  const handleOpen = ({ target }) => {
+  const handleOpen = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLDivElement;
+    if (!target.dataset.index) return;
     const ind = +target.dataset.index;
-    if (ind == undefined) return;
 
     setOpen(true)
     setImageInModal(ind)
   };
 
-  const handleSwitchModalIndex = (e: { target: { dataset: { index: any; length: any; direction: any; }; }; }) => {
-    const { index, length, direction } = e.target.dataset;
+  const handleSwitchModalIndex = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const target = e.target as HTMLButtonElement;
+    if (!target.dataset) return;
+    const { index = 0, length = 0, direction } = target.dataset;
     const i = +index;
+    const l = +length
 
     let newIndex: number;
 
     if (direction === 'DEC') {
-      newIndex = i === 0 ? length - 1 : i - 1;
+      newIndex = i === 0 ? l - 1 : i - 1;
     } else {
-      newIndex = i === length - 1 ? 0 : i + 1;
+      newIndex = i === l - 1 ? 0 : i + 1;
     }
 
     setImageInModal(newIndex)
@@ -51,23 +55,21 @@ const PicGalery: FC<PicGaleryProps> = ({
         columns={column}
         spacing={spacing}
       >
-        {images.map(({altText, url, key }, index) => {
-          return (
-            <div
-              key={key || index}
-              onClick={handleOpen}
-            >
-              <img
-                data-index={index}
-                key={url || index}
-                src={url}
-                width='300'
-                height='300'
-                alt={altText.caption || altText.desc}
-              />
-            </div>
-          )
-        }
+        {images.map(({ altText, url, key }, index) => (
+          <div
+            key={key || index}
+            onClick={handleOpen}
+          >
+            <img
+              data-index={index}
+              key={url || index}
+              src={url}
+              width='300'
+              height='300'
+              alt={altText.caption || altText.desc}
+            />
+          </div>
+        )
         )}
       </Masonry>
 
@@ -85,9 +87,9 @@ const PicGalery: FC<PicGaleryProps> = ({
         </Button>
         <figure>
           <img
-           src={images[imageInModal].url}
-           width='300'
-           height='300'
+            src={images[imageInModal].url}
+            width='300'
+            height='300'
             alt={images[imageInModal].altText.desc || images[imageInModal].altText.caption}
           />
           <figcaption>

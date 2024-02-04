@@ -17,7 +17,8 @@ export interface Frontmatter {
     county: string,
     slug: string,
     excerpt?: string,
-    poiList?: Array<string>
+    poiList?: Array<string>,
+    importance?: number
 };
 
 export interface SubContent {

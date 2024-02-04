@@ -22,7 +22,9 @@ const PoiTemplate: FC<Omit<DynamicProps, 'subContent'>> = ({
             </Button>
             <div>{data.name}</div>
             <div>{ownContent}</div>
-            <Image src={ownImages[0].url} alt={ownImages[0].altText.desc} width={300} height={300} />
+            {ownImages[0] && (
+                <Image src={ownImages[0].url} alt={ownImages[0].altText.desc} width={300} height={300} />
+            )}
 
         </>
     )
