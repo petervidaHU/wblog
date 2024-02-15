@@ -7,6 +7,7 @@ import { AppCacheProvider } from '@mui/material-nextjs/v14-pagesRouter';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Roboto } from 'next/font/google';
 import Layout from "@/components/layout/layout";
+import { theme } from "@/styles/theme";
 
 const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
@@ -14,7 +15,7 @@ const roboto = Roboto({
   display: 'swap',
 });
 
-const theme = createTheme({
+const themeOld = createTheme({
   typography: {
     fontFamily: roboto.style.fontFamily,
   },
