@@ -3,6 +3,7 @@ import { SubContent } from '@/types/DataSource'
 import Link from 'next/link';
 import { Box, Typography, Button } from '@mui/material';
 import { getCaption } from '@/func/getCaption';
+import { Figur, ImageContainer, StyledImage, Figcaption, MainText } from '@/styles/commonStyledComp';
 
 interface Props {
   poi: SubContent,
@@ -23,10 +24,24 @@ const PoiText: FC<Props> = ({ poi: { data, content, images }, baseSlug }) => {
     setExpanded(!expanded);
   };
 
+  const im = images[0] || null
+
   return (
     <Box>
-      {images[0] && images[0].url && <img src={images[0].url} alt={getCaption(images[0])} style={{ maxWidth: '100%' }} />}
-
+      {im && im.url && (
+        <Figur>
+          <ImageContainer>
+            <StyledImage
+              src={im.url}
+              alt={getCaption(im)}
+            />
+          </ImageContainer>
+          <Figcaption>
+            {getCaption(im)}
+          </Figcaption>
+        </Figur>
+      )}
+      
       <Typography variant="h5" gutterBottom>
         {importance <= 2 ? (
           <Link href={`${baseSlug}/${slug}`} passHref>
@@ -37,15 +52,16 @@ const PoiText: FC<Props> = ({ poi: { data, content, images }, baseSlug }) => {
         )}
       </Typography>
 
-      <Typography variant="body2" color="textSecondary" paragraph>
+      <MainText>
         {expanded ? content : truncatedText}
-        {content.length > 300 && (
-          <Button color="primary" onClick={handleExpandClick}>
-            {expanded ? 'See less' : 'See more'}
-          </Button>
-        )}
-      </Typography>
-    </Box>
+      </MainText>
+
+      {content.length > 300 && (
+        <Button color="primary" onClick={handleExpandClick}>
+          {expanded ? 'See less' : 'See more'}
+        </Button>
+      )}
+    </Box >
   );
 }
 

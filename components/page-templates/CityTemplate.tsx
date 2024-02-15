@@ -1,10 +1,8 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import { useRouter } from 'next/router';
 import { ImageBase } from "@/types/Imagetypes";
 import { MarkersType } from "@/types/UITypes";
 import { SubContent } from "@/types/DataSource";
-import { addVisitedSite } from "@/store/visitedSlice";
 import { formatNumber } from "@/func/formatNumbers";
 import { enhanceHtml } from "@/func/enhanceHtml";
 import Box from "@mui/material/Box";
@@ -50,16 +48,19 @@ const CityTemplate: React.FC<Props> = ({ data, ownContent, ownImages, subContent
   const finalBC = breadcrumbOverride(location, breadcrumbs);
 */
   return (
-    <>
+    <Box
+      sx={{
+        mt: 6
+      }}>
+      {Breadcrumbs}
 
       <Title title={name} />
 
       <Box
         sx={{
-          mt: 4
+          mt: 6
         }}
       >
-        {Breadcrumbs} 
         <Typography variant="body1" component="div">
           Population: {formatNumber(population)}
         </Typography>
@@ -68,12 +69,9 @@ const CityTemplate: React.FC<Props> = ({ data, ownContent, ownImages, subContent
         </Typography>
       </Box>
 
-      <Typography
-        variant="body1"
-        component="div"
-      >
+      <Box>
         {mainText}
-      </Typography>
+      </Box>
 
       {subContent && subContent.length > 0 && (
         <PoiContainer
@@ -89,22 +87,9 @@ const CityTemplate: React.FC<Props> = ({ data, ownContent, ownImages, subContent
       <PicGalery
         images={ownImages}
       />
-    </>
+    </Box>
   )
 
 }
 
 export default CityTemplate;
-
-
-/*
- <>
-      <GoBackButton />
-
-      <ListsContainer lists={concernedLists} />
-
-
-   
-      
-    </>
-*/

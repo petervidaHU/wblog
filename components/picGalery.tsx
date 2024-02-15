@@ -4,6 +4,8 @@ import { Button } from '@mui/material';
 import { MyModal } from './modal/MyModal';
 import Image from 'next/image';
 import { ImageBase } from '../types/Imagetypes';
+import { getCaption, getDesc } from '@/func/getCaption';
+import { Figcaption } from '@/styles/commonStyledComp';
 
 const DEFAULT_COLUMN = 3;
 const DEFAULT_SPACING = 1;
@@ -90,11 +92,11 @@ const PicGalery: FC<PicGaleryProps> = ({
             src={images[imageInModal].url}
             width='300'
             height='300'
-            alt={images[imageInModal].altText.desc || images[imageInModal].altText.caption}
+            alt={getDesc(images[imageInModal])}
           />
-          <figcaption>
-            {images[imageInModal].altText.caption || images[imageInModal].altText.desc}
-          </figcaption>
+          <Figcaption>
+            {getCaption(images[imageInModal])}
+          </Figcaption>
         </figure>
         <Button
           data-index={imageInModal}
