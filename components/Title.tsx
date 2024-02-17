@@ -8,8 +8,12 @@ interface Props {
 }
 
 const Title: FC<Props> = ({ title, variant = 'h1'}) => {
+  const customStyle: React.CSSProperties = {
+   textAlign: 'left',
+  };
+
   return (
-    <Typography variant={variant}>
+    <Typography variant={variant} style={customStyle}>
       {title}
     </Typography>
   )

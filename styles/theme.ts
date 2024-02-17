@@ -1,6 +1,22 @@
 import { createTheme } from '@mui/material/styles';
 
-export const darkText = '#666'
+export const commonS = {
+  margins: {
+    huge: '6rem',
+    large: '3rem',
+    medium: '1.5rem',
+    small: '1rem',
+    tiny: '0.5rem',
+  },
+  sizes: {
+    huge: '6rem',
+    large: '3rem',
+    medium: '1.5rem',
+    default: '1rem',
+    small: '0.75rem',
+    tiny: '0.5rem',
+  }
+}
 
 export const theme = createTheme({
   palette: {
@@ -37,33 +53,37 @@ export const theme = createTheme({
     fontWeightMedium: 500,
     fontWeightBold: 700,
     h1: {
-      fontSize: '4.5rem',
-      fontWeight: 700,
+      marginTop: commonS.margins.huge,
+      marginBottom: commonS.margins.small,
+      fontFamily: 'inter, sans-serif',
+      fontSize: commonS.sizes.huge,
+      fontWeight: 300,
     },
     h2: {
+      fontFamily: 'inter, sans-serif',
       fontSize: '2rem',
-      fontWeight: 700,
+      fontWeight: 300,
     },
     h3: {
       fontSize: '1.5rem',
-      fontWeight: 700,
+      fontWeight: 300,
     },
     h4: {
       fontSize: '1.25rem',
-      fontWeight: 700,
+      fontWeight: 500,
     },
     h5: {
       fontSize: '1.125rem',
-      fontWeight: 700,
+      fontWeight: 500,
     },
     h6: {
       fontSize: '1rem',
-      fontWeight: 700,
+      fontWeight: 300,
     },
   },
   spacing: 8,
   shape: {
-    borderRadius: 4,
+    borderRadius: 15,
   },
   transitions: {
     easing: {

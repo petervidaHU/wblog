@@ -4,7 +4,7 @@ import { CoordinatesType } from '@/types/DataSource';
 import { MarkersType } from '@/types/UITypes';
 
 interface Props {
-  width: number;
+  width: number | string;
   height: number;
   center: CoordinatesType,
   zoom: number,
@@ -15,6 +15,15 @@ const DynamicMap = dynamic(() => import('./DynamicMap'), {
   ssr: false
 });
 
+const MapComponent: FC<Props> = (props) => {
+  return (
+    <DynamicMap {...props} />
+  )
+}
+
+export default MapComponent;
+
+/*
 // Set default sizing to control aspect ratio which will scale responsively
 // but also help avoid layout shift
 
@@ -29,5 +38,4 @@ const MapComponent: FC<Props> = (props) => {
     </div>
   )
 }
-
-export default MapComponent;
+*/

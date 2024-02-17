@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { SubContent } from '@/types/DataSource'
-import Title from './page-templates/Title'
+import Title from './Title'
 import PoiText from './PoiText'
 
 interface Props {

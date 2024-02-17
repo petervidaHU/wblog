@@ -1,4 +1,4 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 import { useRouter } from 'next/router';
 import { ImageBase } from "@/types/Imagetypes";
 import { MarkersType } from "@/types/UITypes";
@@ -10,9 +10,10 @@ import Typography from "@mui/material/Typography";
 import MapComponent from "../Map/MapComponent";
 import PoiContainer from "../PoiContainer";
 import PicGalery from "../picGalery";
-import Title from "./Title";
+import Title from "../Title";
 import { useVisitedSites } from "@/hooks/useVisitedSites";
 import { useBreadcrumb } from "@/hooks/useBreadcrumbs";
+import InfoCard from "../InfoCard";
 
 interface Props {
   data: any,
@@ -44,32 +45,22 @@ const CityTemplate: React.FC<Props> = ({ data, ownContent, ownImages, subContent
     slug: content.data.slug,
   }));
 
-  /*
-  const finalBC = breadcrumbOverride(location, breadcrumbs);
-*/
+  const margin: CSSProperties = {
+    marginTop: '4rem',
+  }
+
   return (
-    <Box
-      sx={{
-        mt: 6
-      }}>
+    <Box style={margin} >
       {Breadcrumbs}
 
       <Title title={name} />
 
-      <Box
-        sx={{
-          mt: 6
-        }}
-      >
-        <Typography variant="body1" component="div">
-          Population: {formatNumber(population)}
-        </Typography>
-        <Typography variant="body1" component="div">
-          county: {county}
-        </Typography>
-      </Box>
+      <InfoCard
+        population={population}
+        county={county}
+      />
 
-      <Box>
+      <Box style={margin}>
         {mainText}
       </Box>
 
@@ -82,11 +73,13 @@ const CityTemplate: React.FC<Props> = ({ data, ownContent, ownImages, subContent
         />
       )}
 
-      <MapComponent width={600} height={600} center={coordinates} zoom={10} markers={markerPoints} />
+      <MapComponent width={'100%'} height={600} center={coordinates} zoom={10} markers={markerPoints} />
 
-      <PicGalery
-        images={ownImages}
-      />
+      <Box style={margin}>
+        <PicGalery
+          images={ownImages}
+        />
+      </Box>
     </Box>
   )
 

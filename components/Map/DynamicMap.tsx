@@ -6,7 +6,7 @@ import { MarkersType } from '@/types/UITypes';
 import { CoordinatesType } from '@/types/DataSource';
 
 interface Props {
-  width: number,
+  width: number | string,
   height: number,
   center: CoordinatesType,
   zoom: number,

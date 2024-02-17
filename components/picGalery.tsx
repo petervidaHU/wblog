@@ -1,11 +1,14 @@
-import { Masonry } from '@mui/lab';
 import React, { FC } from 'react'
-import { Button } from '@mui/material';
-import { MyModal } from './modal/MyModal';
 import Image from 'next/image';
 import { ImageBase } from '../types/Imagetypes';
+import { Masonry } from '@mui/lab';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeftRounded';
+import ChevronRighttIcon from '@mui/icons-material/ChevronRightRounded';
+import { IconButton, styled } from '@mui/material';
+import { MyModal } from './modal/MyModal';
 import { getCaption, getDesc } from '@/func/getCaption';
 import { Figcaption } from '@/styles/commonStyledComp';
+import { theme } from '@/styles/theme';
 
 const DEFAULT_COLUMN = 3;
 const DEFAULT_SPACING = 1;
@@ -57,20 +60,20 @@ const PicGalery: FC<PicGaleryProps> = ({
         columns={column}
         spacing={spacing}
       >
-        {images.map(({ altText, url, key }, index) => (
-          <div
+        {images.map(({ altText, url, key, dimension }, index) => (
+          <Image
             key={key || index}
             onClick={handleOpen}
-          >
-            <img
-              data-index={index}
-              key={url || index}
-              src={url}
-              width='300'
-              height='300'
-              alt={altText.caption || altText.desc}
-            />
-          </div>
+            style={{ 
+              borderRadius: theme.shape.borderRadius,
+              cursor: 'pointer',
+             }}
+            width={300}
+            height={dimension.height / dimension.width * 300}
+            data-index={index}
+            src={url}
+            alt={altText.caption || altText.desc}
+          />
         )
         )}
       </Masonry>
@@ -79,36 +82,82 @@ const PicGalery: FC<PicGaleryProps> = ({
         isOpen={open}
         opener={setOpen}
       >
-        <Button
-          data-index={imageInModal}
-          data-direction={'DEC'}
-          data-length={images.length}
-          onClick={handleSwitchModalIndex}
-        >
-          left
-        </Button>
-        <figure>
-          <img
-            src={images[imageInModal].url}
-            width='300'
-            height='300'
-            alt={getDesc(images[imageInModal])}
-          />
-          <Figcaption>
-            {getCaption(images[imageInModal])}
-          </Figcaption>
-        </figure>
-        <Button
-          data-index={imageInModal}
-          data-direction={'INC'}
-          data-length={images.length}
-          onClick={handleSwitchModalIndex}
-        >
-          right
-        </Button>
+        <ImageContainer>
+          <IconButton
+            className="left"
+            onClick={handleSwitchModalIndex}
+          >
+            <ChevronLeftIcon
+              data-index={imageInModal}
+              data-direction={'DEC'}
+              data-length={images.length}
+            />
+          </IconButton>
+          <figure>
+            <Image
+              style={{ borderRadius: theme.shape.borderRadius }}
+              width={1000}
+              height={images[imageInModal].dimension.height / images[imageInModal].dimension.width * 1000}
+              src={images[imageInModal].url}
+              alt={getDesc(images[imageInModal])}
+            />
+            <Figcaption>
+              {getCaption(images[imageInModal])}
+            </Figcaption>
+          </figure>
+          <IconButton
+            className="right"
+            onClick={handleSwitchModalIndex}
+          >
+            <ChevronRighttIcon
+              data-index={imageInModal}
+              data-direction={'INC'}
+              data-length={images.length}
+            />
+          </IconButton>
+        </ImageContainer>
       </MyModal>
     </>
   )
 }
 
 export default PicGalery
+
+const ImageContainer = styled('div')({
+  borderRadius: theme.shape.borderRadius,
+  position: 'relative',
+
+  '& button': {
+    padding: '.4rem',
+    marginInline: '.5rem',
+    borderRadius: '50%',
+    position: 'absolute',
+    top: '50%',
+    opacity: 0,
+    transition: 'opacity .3s ease',
+  },
+  '& button.right': {
+    right: 0,
+  },
+  '&:hover button': {
+    backgroundColor: 'rgba(0, 0, 0, .5)',
+    color: '#fff',
+    opacity: '.8',
+  },
+  '& figcaption': {
+    padding: '.4rem',
+    margin: '1rem',
+    borderRadius: '10px',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    opacity: 0,
+    transition: 'opacity .3s ease',
+    color: '#fff',
+  },
+  '&:hover figcaption': {
+    backgroundColor: 'rgba(0, 0, 0, .9)',
+    opacity: '.8',
+  },
+})

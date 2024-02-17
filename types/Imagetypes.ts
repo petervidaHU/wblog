@@ -5,4 +5,8 @@ export interface ImageBase {
         desc: string,
     },
     key: string,
+    dimension: {
+        width: number,
+        height: number,
+    }
 }
